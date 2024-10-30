@@ -23,10 +23,10 @@ func NewJsonReader(responseWriter http.ResponseWriter, request *http.Request, da
 	}
 }
 
-func (h *JsonReader) Read() error {
+func (h *JsonReader) Read(data any) error {
 	h.request.Body = http.MaxBytesReader(h.writer, h.request.Body, int64(h.maxBytes))
 	dec := json.NewDecoder(h.request.Body)
-	err := dec.Decode(h.data)
+	err := dec.Decode(data)
 
 	if err != nil {
 		return err
